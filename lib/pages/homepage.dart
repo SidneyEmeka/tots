@@ -11,53 +11,6 @@ import 'package:tots/pages/foldernotespreview.dart';
 class Homepage extends StatelessWidget {
   const Homepage({super.key});
 
-  Widget noteFolders({
-    required String id,
-    required String title,
-    required String howmanynotes,
-    required Function() onCheck,
-  }) {
-    return GestureDetector(
-      onTap: onCheck(),
-      child: Container(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.start,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            ListTile(
-              leading: Text(
-                id,
-                style: const TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black),
-              ),
-              title: Text(
-                title,
-                style: const TextStyle(
-                    fontSize: 20,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black),
-              ),
-              subtitle: Text(
-                "$howmanynotes Notes",
-                style: const TextStyle(
-                    fontSize: 10,
-                    fontWeight: FontWeight.w500,
-                    color: Colors.black),
-              ),
-              contentPadding: EdgeInsets.zero,
-            ),
-            const Divider(
-              color: Colors.black,
-              thickness: 1,
-            )
-          ],
-        ),
-      ),
-    );
-  }
-
   Widget horizontalSpace(double val) {
     return const SizedBox(
       width: 5,
@@ -130,32 +83,66 @@ class Homepage extends StatelessWidget {
                 const Pageheaderwidget(
                     title: "ALL FOLDERS", subTitle: "This Month"),
                 ...forEachFolder.entries.map((eachIteration) {
+                  Widget noteFolders({
+                    required String id,
+                    required String title,
+                    required String howmanynotes,
+                  }) {
+                    return GestureDetector(
+                      onTap: () {
+                        Navigator.of(context).push(MaterialPageRoute(
+                            builder: (context) => Foldernotespreview(
+                                  type: eachIteration.key,
+                                  theKeynotes: eachIteration.value,
+                                )));
+                      },
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.start,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          ListTile(
+                            leading: Text(
+                              id,
+                              style: const TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black),
+                            ),
+                            title: Text(
+                              title,
+                              style: const TextStyle(
+                                  fontSize: 20,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black),
+                            ),
+                            subtitle: Text(
+                              "$howmanynotes Notes",
+                              style: const TextStyle(
+                                  fontSize: 10,
+                                  fontWeight: FontWeight.w500,
+                                  color: Colors.black),
+                            ),
+                            contentPadding: EdgeInsets.zero,
+                          ),
+                          const Divider(
+                            color: Colors.black,
+                            thickness: 1,
+                          )
+                        ],
+                      ),
+                    );
+                  }
+
                   final id =
                       forEachFolder.keys.toList().indexOf(eachIteration.key) +
                           1;
                   final howManynotes = eachIteration.value.length;
                   final title = eachIteration.key;
                   return noteFolders(
-                      id: "$id",
-                      title: title,
-                      howmanynotes: '$howManynotes',
-                      onCheck: () {
-                        Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                                builder: (context) => Foldernotespreview(
-                                  type: eachIteration.key,
-                                  theKeynotes: eachIteration.value,
-                                )));
-                        // Navigator.push(
-                        //   context,
-                        //   MaterialPageRoute(
-                        //     builder: (context) => Foldernotespreview(
-                        //         type: eachIteration.key,
-                        //         theKeynotes: eachIteration.value),
-                        //   ),
-                        // );
-                      });
+                    id: "$id",
+                    title: title,
+                    howmanynotes: '$howManynotes',
+                  );
                 }),
               ],
             ),

@@ -43,6 +43,7 @@ class Foldernotespreview extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              if(mustRead)
               Container(
                 padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 5),
                 alignment: Alignment.center,
@@ -127,7 +128,7 @@ class Foldernotespreview extends StatelessWidget {
               const SizedBox(
                 height: 90,
               ),
-              const Pageheaderwidget(title: "title", subTitle: "subTitle"),
+               Pageheaderwidget(title: type.toUpperCase(), subTitle: "${theKeynotes.length.toString()} notes"),
               Expanded(
                 child: GridView.count(
                   primary: false,
