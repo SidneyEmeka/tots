@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:tots/pages/foldernotespreview.dart';
 import 'package:tots/pages/homepage.dart';
 
 void main() {
@@ -15,10 +16,14 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Flutter Demo',
       theme: ThemeData(
+        appBarTheme: AppBarTheme(
+          color: Colors.transparent
+        ),
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
       home: const Homepage(),
+      //home: const Foldernotespreview(),
     );
   }
 }

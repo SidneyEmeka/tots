@@ -1,16 +1,63 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:tots/Widgs/pageheaderwidget.dart';
 import 'dart:ui';
 
-class Homepage extends StatefulWidget {
+import 'package:tots/notedata.dart';
+import 'package:tots/pages/foldernotespreview.dart';
+
+class Homepage extends StatelessWidget {
   const Homepage({super.key});
 
-  @override
-  State<Homepage> createState() => _HomepageState();
-}
+  Widget noteFolders({
+    required String id,
+    required String title,
+    required String howmanynotes,
+    required Function() onCheck,
+  }) {
+    return GestureDetector(
+      onTap: onCheck(),
+      child: Container(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            ListTile(
+              leading: Text(
+                id,
+                style: const TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black),
+              ),
+              title: Text(
+                title,
+                style: const TextStyle(
+                    fontSize: 20,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black),
+              ),
+              subtitle: Text(
+                "$howmanynotes Notes",
+                style: const TextStyle(
+                    fontSize: 10,
+                    fontWeight: FontWeight.w500,
+                    color: Colors.black),
+              ),
+              contentPadding: EdgeInsets.zero,
+            ),
+            const Divider(
+              color: Colors.black,
+              thickness: 1,
+            )
+          ],
+        ),
+      ),
+    );
+  }
 
-class _HomepageState extends State<Homepage> {
   Widget horizontalSpace(double val) {
     return const SizedBox(
       width: 5,
@@ -29,6 +76,7 @@ class _HomepageState extends State<Homepage> {
       extendBodyBehindAppBar: true,
       drawer: const Drawer(),
       appBar: AppBar(
+        scrolledUnderElevation: 0,
         backgroundColor: Colors.transparent,
         elevation: 0,
         shape: const RoundedRectangleBorder(
@@ -68,7 +116,7 @@ class _HomepageState extends State<Homepage> {
               Colors.white,
               Color(0xFFC8A8E7),
               Color(0xFFE1DB87),
-              Color(0xFFEAE498)
+              Color(0xFFE1DB87),
             ])),
         child: SingleChildScrollView(
           child: Padding(
@@ -79,102 +127,36 @@ class _HomepageState extends State<Homepage> {
                 const SizedBox(
                   height: 90,
                 ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "ALL FOLDERS",
-                          style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
-                        ),
-                        verticalSpace(5),
-                        const Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              "This month",
-                              style: TextStyle(
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Icon(
-                                FontAwesomeIcons.calendar,
-                                size: 10,
-                                color: Colors.black,
-                              ),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: Colors.black)),
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Icon(FontAwesomeIcons.plus),
-                      ),
-                    )
-                  ],
-                ),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        const Text(
-                          "ALL FOLDERS",
-                          style: TextStyle(
-                              fontSize: 15,
-                              fontWeight: FontWeight.bold,
-                              color: Colors.black),
-                        ),
-                        verticalSpace(5),
-                        const Row(
-                          crossAxisAlignment: CrossAxisAlignment.center,
-                          children: [
-                            Text(
-                              "This month",
-                              style: TextStyle(
-                                  fontSize: 10,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.black),
-                            ),
-                            Padding(
-                              padding: EdgeInsets.symmetric(horizontal: 8.0),
-                              child: Icon(
-                                FontAwesomeIcons.calendar,
-                                size: 10,
-                                color: Colors.black,
-                              ),
-                            )
-                          ],
-                        )
-                      ],
-                    ),
-                    Container(
-                      decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          border: Border.all(color: Colors.black)),
-                      child: const Padding(
-                        padding: EdgeInsets.all(8.0),
-                        child: Icon(FontAwesomeIcons.plus),
-                      ),
-                    )
-                  ],
-                ),
+                const Pageheaderwidget(
+                    title: "ALL FOLDERS", subTitle: "This Month"),
+                ...forEachFolder.entries.map((eachIteration) {
+                  final id =
+                      forEachFolder.keys.toList().indexOf(eachIteration.key) +
+                          1;
+                  final howManynotes = eachIteration.value.length;
+                  final title = eachIteration.key;
+                  return noteFolders(
+                      id: "$id",
+                      title: title,
+                      howmanynotes: '$howManynotes',
+                      onCheck: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => Foldernotespreview(
+                                  type: eachIteration.key,
+                                  theKeynotes: eachIteration.value,
+                                )));
+                        // Navigator.push(
+                        //   context,
+                        //   MaterialPageRoute(
+                        //     builder: (context) => Foldernotespreview(
+                        //         type: eachIteration.key,
+                        //         theKeynotes: eachIteration.value),
+                        //   ),
+                        // );
+                      });
+                }),
               ],
             ),
           ),
