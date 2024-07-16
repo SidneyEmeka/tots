@@ -6,14 +6,19 @@ import 'package:tots/notedata.dart';
 class Foldernotespreview extends StatelessWidget {
   final String type;
   final List<theNotesofaNote> theKeynotes;
-  const Foldernotespreview({super.key, required this.type, required this.theKeynotes});
+
+  const Foldernotespreview(
+      {super.key, required this.type, required this.theKeynotes});
 
   Widget previewCard(
-      {required String cardTitle, required String noteSnippet, required String time, required bool mustRead}) {
+      {required String cardTitle,
+      required String noteSnippet,
+      required String time,
+      required bool mustRead}) {
     return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
+      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
       decoration: BoxDecoration(
-          border: Border.all(color: Colors.black38, width: 1.5),
+          border: Border.all(color: Colors.black, width: 1.2),
           borderRadius: BorderRadius.circular(10)),
       height: 250,
       width: 160,
@@ -23,7 +28,8 @@ class Foldernotespreview extends StatelessWidget {
         children: [
           Text(
             cardTitle,
-            style: const TextStyle(fontSize: 20,fontWeight: FontWeight.w500, color: Colors.black),
+            style: const TextStyle(
+                fontSize: 15, fontWeight: FontWeight.w500, color: Colors.black),
           ),
           Container(
             //  padding: const EdgeInsets.symmetric(vertical: 5),
@@ -39,35 +45,50 @@ class Foldernotespreview extends StatelessWidget {
                   color: Colors.black),
             ),
           ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              if(mustRead)
-              Container(
-                padding: const EdgeInsets.symmetric(vertical: 3, horizontal: 5),
-                alignment: Alignment.center,
-                decoration: BoxDecoration(
-                  borderRadius: BorderRadius.circular(8),
-                  color: Colors.black,
+          if (mustRead)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Container(
+                  padding:
+                      const EdgeInsets.symmetric(vertical: 3, horizontal: 5),
+                  alignment: Alignment.center,
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(8),
+                    color: Colors.black,
+                  ),
+                  child: const Text(
+                    "Must Read",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 10,
+                    ),
+                  ),
                 ),
-                child: const Text(
-                  "Must Read",
-                  style: TextStyle(
-                    color: Colors.white,
+                Text(
+                  time,
+                  style: const TextStyle(
+                    color: Colors.black54,
                     fontSize: 10,
                   ),
                 ),
-              ),
-              Text(
-                time,
-                style: const TextStyle(
-                  color: Colors.black54,
-                  fontSize: 10,
+              ],
+            ),
+          if (!mustRead)
+            Row(
+              mainAxisAlignment: MainAxisAlignment.end,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Text(
+                  time,
+                  style: const TextStyle(
+                    color: Colors.black54,
+                    fontSize: 10,
+                  ),
                 ),
-              ),
-            ],
-          )
+              ],
+            ),
         ],
       ),
     );
@@ -128,7 +149,11 @@ class Foldernotespreview extends StatelessWidget {
               const SizedBox(
                 height: 90,
               ),
-               Pageheaderwidget(title: type.toUpperCase(), subTitle: theKeynotes.length.toString() == "1"? "${theKeynotes.length} note" : "${theKeynotes.length} notes"),
+              Pageheaderwidget(
+                  title: type.toUpperCase(),
+                  subTitle: theKeynotes.length.toString() == "1"
+                      ? "${theKeynotes.length} note"
+                      : "${theKeynotes.length} notes"),
               Expanded(
                 child: GridView.count(
                   primary: false,
@@ -137,13 +162,17 @@ class Foldernotespreview extends StatelessWidget {
                   mainAxisSpacing: 10,
                   crossAxisCount: 2,
                   children: [
-                   ...theKeynotes.map((aCard){
-                     final cardTitle = aCard.title;
-                     final noteSnippet = aCard.body;
-                     final time = aCard.date;
-                     final mustRead = aCard.mustRead;
-                     return previewCard(cardTitle: cardTitle, noteSnippet: noteSnippet, time: time, mustRead: mustRead);
-                   })
+                    ...theKeynotes.map((aCard) {
+                      final cardTitle = aCard.title;
+                      final noteSnippet = aCard.body;
+                      final time = aCard.date;
+                      final mustRead = aCard.mustRead;
+                      return previewCard(
+                          cardTitle: cardTitle,
+                          noteSnippet: noteSnippet,
+                          time: time,
+                          mustRead: mustRead);
+                    })
                   ],
                 ),
               ),

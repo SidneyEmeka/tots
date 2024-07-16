@@ -83,6 +83,7 @@ class Homepage extends StatelessWidget {
                 const Pageheaderwidget(
                     title: "ALL FOLDERS", subTitle: "This Month"),
                 ...forEachFolder.entries.map((eachIteration) {
+                  //cateories widgets
                   Widget noteFolders({
                     required String id,
                     required String title,
@@ -116,7 +117,9 @@ class Homepage extends StatelessWidget {
                                   color: Colors.black),
                             ),
                             subtitle: Text(
-                                howmanynotes == "1"? "$howmanynotes Note" : "$howmanynotes Notes",
+                              howmanynotes == "1"
+                                  ? "$howmanynotes Note"
+                                  : "$howmanynotes Notes",
                               style: const TextStyle(
                                   fontSize: 10,
                                   fontWeight: FontWeight.w500,
