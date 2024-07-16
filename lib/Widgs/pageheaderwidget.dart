@@ -28,7 +28,7 @@ class Pageheaderwidget extends StatelessWidget {
               height: 5,
             ),
             Row(
-              crossAxisAlignment: CrossAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   subTitle,
@@ -41,7 +41,7 @@ class Pageheaderwidget extends StatelessWidget {
                   padding: EdgeInsets.symmetric(horizontal: 8.0),
                   child: Icon(
                     FontAwesomeIcons.calendar,
-                    size: 10,
+                    size: 12,
                     color: Colors.black,
                   ),
                 )

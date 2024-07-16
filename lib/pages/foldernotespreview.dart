@@ -128,7 +128,7 @@ class Foldernotespreview extends StatelessWidget {
               const SizedBox(
                 height: 90,
               ),
-               Pageheaderwidget(title: type.toUpperCase(), subTitle: "${theKeynotes.length.toString()} notes"),
+               Pageheaderwidget(title: type.toUpperCase(), subTitle: theKeynotes.length.toString() == "1"? "${theKeynotes.length} note" : "${theKeynotes.length} notes"),
               Expanded(
                 child: GridView.count(
                   primary: false,

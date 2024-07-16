@@ -116,7 +116,7 @@ class Homepage extends StatelessWidget {
                                   color: Colors.black),
                             ),
                             subtitle: Text(
-                              "$howmanynotes Notes",
+                                howmanynotes == "1"? "$howmanynotes Note" : "$howmanynotes Notes",
                               style: const TextStyle(
                                   fontSize: 10,
                                   fontWeight: FontWeight.w500,
