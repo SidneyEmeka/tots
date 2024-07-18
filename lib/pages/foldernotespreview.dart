@@ -11,29 +11,22 @@ class Foldernotespreview extends StatelessWidget {
   const Foldernotespreview(
       {super.key, required this.type, required this.theKeynotes});
 
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         extendBodyBehindAppBar: true,
-        drawer: const Drawer(),
         appBar: AppBar(
           scrolledUnderElevation: 0,
           backgroundColor: Colors.transparent,
           elevation: 0,
+          leading: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: const Icon(FontAwesomeIcons.arrowLeft)),
           shape: const RoundedRectangleBorder(
               borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))),
-          //title: const Text("Menu"),
           actions: const [
-            Padding(
-              padding: EdgeInsets.only(right: 5.0, bottom: 10),
-              child: Icon(
-                FontAwesomeIcons.bell,
-                size: 20,
-                color: Colors.black,
-              ),
-            ),
             Padding(
               padding: EdgeInsets.only(right: 10.0, bottom: 10),
               child: Icon(
@@ -89,36 +82,43 @@ class Foldernotespreview extends StatelessWidget {
 
                       Widget previewCard(
                           {required String cardTitle,
-                            required String noteSnippet,
-                            required String time,
-                            required bool mustRead}) {
+                          required String noteSnippet,
+                          required String time,
+                          required bool mustRead}) {
                         return GestureDetector(
-                          onTap: (){
-                            print(cardTitle);
+                          onTap: () {
                             Navigator.of(context).push(MaterialPageRoute(
                                 builder: (context) => Singlenotepage(
-                                    theNoteName: cardTitle,
-                                    mustRaed: mustRead, theNote: noteSnippet, thedate: time,)));
+                                      theNoteName: cardTitle,
+                                      mustRaed: mustRead,
+                                      theNote: noteSnippet,
+                                      thedate: time,
+                                    )));
                           },
                           child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 10),
+                            padding: const EdgeInsets.symmetric(
+                                horizontal: 10, vertical: 5),
                             decoration: BoxDecoration(
-                                border: Border.all(color: Colors.black, width: 1.2),
+                                border:
+                                    Border.all(color: Colors.black, width: 1.2),
                                 borderRadius: BorderRadius.circular(10)),
-                            height: 250,
+                            height: 100,
                             width: 160,
                             child: Column(
-                              mainAxisAlignment: MainAxisAlignment.start,
+                              mainAxisAlignment: MainAxisAlignment.center,
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Text(
                                   cardTitle,
                                   style: const TextStyle(
-                                      fontSize: 15, fontWeight: FontWeight.w500, color: Colors.black),
+                                      fontSize: 15,
+                                      fontWeight: FontWeight.w500,
+                                      color: Colors.black),
                                 ),
                                 Container(
                                   //  padding: const EdgeInsets.symmetric(vertical: 5),
-                                  margin: const EdgeInsets.symmetric(vertical: 5),
+                                  margin:
+                                      const EdgeInsets.symmetric(vertical: 5),
                                   height: 80,
                                   width: 120,
 
@@ -132,15 +132,18 @@ class Foldernotespreview extends StatelessWidget {
                                 ),
                                 if (mustRead)
                                   Row(
-                                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceBetween,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Container(
-                                        padding:
-                                        const EdgeInsets.symmetric(vertical: 3, horizontal: 5),
+                                        padding: const EdgeInsets.symmetric(
+                                            vertical: 3, horizontal: 5),
                                         alignment: Alignment.center,
                                         decoration: BoxDecoration(
-                                          borderRadius: BorderRadius.circular(8),
+                                          borderRadius:
+                                              BorderRadius.circular(8),
                                           color: Colors.black,
                                         ),
                                         child: const Text(
@@ -163,7 +166,8 @@ class Foldernotespreview extends StatelessWidget {
                                 if (!mustRead)
                                   Row(
                                     mainAxisAlignment: MainAxisAlignment.end,
-                                    crossAxisAlignment: CrossAxisAlignment.center,
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.center,
                                     children: [
                                       Text(
                                         time,
@@ -179,6 +183,7 @@ class Foldernotespreview extends StatelessWidget {
                           ),
                         );
                       }
+
                       return previewCard(
                           cardTitle: cardTitle,
                           noteSnippet: noteSnippet,

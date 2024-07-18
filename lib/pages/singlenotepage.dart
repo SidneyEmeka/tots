@@ -8,7 +8,11 @@ class Singlenotepage extends StatelessWidget {
   final String thedate;
 
   const Singlenotepage(
-      {super.key, required this.theNoteName, required this.mustRaed, required this.theNote, required this.thedate});
+      {super.key,
+      required this.theNoteName,
+      required this.mustRaed,
+      required this.theNote,
+      required this.thedate});
 
   Widget aNote() {
     return Column(
@@ -59,23 +63,18 @@ class Singlenotepage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       extendBodyBehindAppBar: true,
-      drawer: const Drawer(),
       appBar: AppBar(
         scrolledUnderElevation: 0,
         backgroundColor: Colors.transparent,
         elevation: 0,
         shape: const RoundedRectangleBorder(
             borderRadius: BorderRadius.vertical(bottom: Radius.circular(10))),
-        //title: const Text("Menu"),
+        leading: GestureDetector(
+            onTap: () {
+              Navigator.pop(context);
+            },
+            child: Icon(FontAwesomeIcons.arrowLeft)),
         actions: const [
-          Padding(
-            padding: EdgeInsets.only(right: 5.0, bottom: 10),
-            child: Icon(
-              FontAwesomeIcons.bell,
-              size: 20,
-              color: Colors.black,
-            ),
-          ),
           Padding(
             padding: EdgeInsets.only(right: 10.0, bottom: 10),
             child: Icon(
@@ -113,11 +112,12 @@ class Singlenotepage extends StatelessWidget {
             aNote(),
             SizedBox(
               height: MediaQuery.of(context).size.height - 200,
-              child:  SingleChildScrollView(
+              child: SingleChildScrollView(
                 child: Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 5.0),
-                  child: Text(theNote
-                    ,style: const TextStyle(
+                  child: Text(
+                    theNote,
+                    style: const TextStyle(
                         fontWeight: FontWeight.w500,
                         fontSize: 15,
                         color: Colors.black),

@@ -20,7 +20,7 @@ class Pageheaderwidget extends StatelessWidget {
             Text(
               title,
               style: const TextStyle(
-                  fontSize: 15,
+                  fontSize: 20,
                   fontWeight: FontWeight.bold,
                   color: Colors.black),
             ),
@@ -28,12 +28,12 @@ class Pageheaderwidget extends StatelessWidget {
               height: 5,
             ),
             Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Text(
                   subTitle,
                   style: const TextStyle(
-                      fontSize: 10,
+                      fontSize: 15,
                       fontWeight: FontWeight.w500,
                       color: Colors.black),
                 ),
